@@ -1,20 +1,20 @@
 ---
-layout: Homepage
+home: true
 heroImage: /img/zeus-logo.svg
-heroText: null
+heroText: Zeus Official Documentation
 tagline: null
 features:
 - title: User Guide
-  details: For users using Zeus.
+  details: Minimal setup with markdown-centered project structure helps you focus on writing.
   actionText: User Docs  ❯
   actionLink: /Guide/
-- title: Development
-  details: For developers building on Zeus.
+- title: Developer
+  details: Enjoy the dev experience of Vue + webpack, use Vue components in markdown, and develop custom themes with Vue.
   actionText: Developers Docs  ❯
   actionLink: /Development/
 - title: Contribute
   details: How to contribute to Zeus.
-  actionText: Contributer Docs  ❯
+  actionText: Contributor Docs  ❯
   actionLink: /Contribute/
-footer:  Content Released under AGPL v3 license.
+footer: Content Released under AGPL v3 license.
 ---

@@ -1,171 +1,36 @@
-const { resolve } = require('path')
-const implicitFigures = require('markdown-it-implicit-figures')
-const slugify = require('./slugify')
-const preprocessMarkdown = resolve(__dirname, 'preprocessMarkdown')
-
-const title = ''
-const baseUrl = ''
-const pageSuffix = '/'
-const info = {
-  name: title,
-  twitter: 'zeusln'
-}
-const extractDescription = text => {
-  if (!text) return
-  const paragraph = text.match(/^[A-Za-z].*(?:\n[A-Za-z].*)*/m)
-  return paragraph ? paragraph.toString().replace(/[\*\_\(\)\[\]]/g, '') : null
-}
-
 const sidebarUserGuide = [
-      ['/Guide', 'Introduction'],
+  ['/guide', 'Introduction'],
   {
     title: 'Getting Started',
     collapsable: false,
     children: [
-      ['/use-cases', 'Use cases'],
       {
-        title: 'Node operators',
-        path: '/node-operators',
-        collapsable: true,
-        initialOpenGroupIndex: -1,
-        children: [
-          {
-            title: 'Umbrel',
-            path: '/connect-umbrel'
-          },
-          {
-            title: 'MyNode',
-            path: '/connect-mynode'
-          },
-          {
-            title: 'Nodl',
-            path: '/connect-nodl'
-          },
-          {
-            title: 'RaspiBlitz',
-            path: '/connect-raspiblitz'
-          },
-        ]
+        title: 'Use cases',
+        path: '/use-cases',
+        collapsable: false,
+        children: ['/node-operators', '/merchants', '/payments', '/savings']
       },
-      {
-        title: 'Merchants',
-        path: '/merchants',
-        collapsable: true,
-        initialOpenGroupIndex: -1,
-        children: [
-          {
-            title: 'BTCPay Server',
-            path: '/connect-btcpayserver'
-          }
-        ]
-      },
-      {
-        title: 'Individuals',
-        path: '/individuals',
-        collapsable: true,
-        initialOpenGroupIndex: -1,
-        children: [
-          {
-            title: 'LNDHub',
-            path: '/connect-lndhub'
-          },
-          {
-            title: 'Nayuta Core',
-            path: '/connect-nayuta-core'
-          }
-        ]
-      },
+      ['/onboarding', 'Onboarding']
     ]
   },
   {
     title: 'Using Zeus',
     collapsable: false,
-    children: [
-      {
-        title: 'Configuring Zeus',
-        path: '/configuring',
-        collapsable: true,
-        initialOpenGroupIndex: -1,
-        children: [
-          {
-            title: 'Node',
-            path: '/node'
-          },
-          {
-            title: 'Accounts',
-            path: '/accounts'
-          },
-          {
-            title: 'Contacts',
-            path: '/contacts'
-          },
-          {
-            title: 'Privacy',
-            path: '/privacy'
-          },
-          {
-            title: 'Security',
-            path: '/security'
-          },
-          {
-            title: 'Messages',
-            path: '/messages'
-          },
-          {
-            title: 'Localisation',
-            path: '/localisation'
-          }
-        ]
-      },
-      {
-        title: 'Payments',
-        path: '/payments',
-        collapsable: true,
-        initialOpenGroupIndex: -1,
-        children: [
-          {
-            title: 'Requesting bitcoin',
-            path: '/requesting-bitcoin'
-          },
-          {
-            title: 'Sending bitcoin',
-            path: '/sending-bitcoin'
-          }
-        ]
-      },
-      {
-        title: 'Channels',
-        path: '/channels',
-        collapsable: true,
-        initialOpenGroupIndex: -1,
-        children: [
-          {
-            title: 'Balances',
-            path: '/balances'
-          },
-        ]
-      },
-    ]
+    children: ['/overview', '/home', '/accounts', '/profiles', '/settings', '/channels', '/requesting', '/activity', '/contacts', '/sending',
+    '/routing', '/coins' ]
   },
   {
     title: 'Support and Community',
     collapsable: false,
-    initialOpenGroupIndex: -1,
-    children: [
-      ['/Troubleshooting', 'Troubleshooting an issue'],
-      ['/Support', 'Support'],
-      ['/Community', 'Community']
-    ]
-  }
+    children: ['/support', '/troubleshooting', '/community', '/supporters']
+  },
 ]
 
 const sidebarDevelopment = [
   {
     title: 'Development',
     collapsable: false,
-    children: [
-      '/Development/'
-    ]
+    children: ['/Development/']
   }
 ]
 
@@ -179,10 +44,7 @@ const sidebarContribute = [
         title: 'Code',
         path: '/Contribute/Dev',
         collapsable: false,
-        children: [
-          '/Contribute/DevCode',
-          '/Contribute/DevTest'
-        ]
+        children: ['/Contribute/DevCode','/Contribute/DevTest']
       },
       {
         title: 'Write',
@@ -198,7 +60,6 @@ const sidebarContribute = [
       ['/Contribute/Misc', 'Miscellaneous']
     ]
   },
-
 ]
 
 const sidebarFAQ = [
@@ -206,70 +67,18 @@ const sidebarFAQ = [
     title: 'FAQ and common issues',
     path: '/FAQ/',
     collapsable: false,
-    children: [
-      'General'
-    ]
+    children: ['General']
   }
 ]
 
 module.exports = {
-  title,
-  description: 'Zeus Official Documentation',
   head: [
-    ['meta', { name: 'viewport', content: 'width=device-width,initial-scale=1.0'}],
-    ['link', { rel: 'stylesheet', href: '/styles/zeus-variables.css' }]
+    ['link', { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap' }],
   ],
-  chainWebpack (config) {
-    config.module
-      .rule('md')
-      .test(/\.md$/)
-      .use(preprocessMarkdown)
-        .loader(preprocessMarkdown)
-        .end()
-  },
-  plugins: [
-    ['seo', {
-      siteTitle: (_, $site) => $site.title,
-      title: $page => $page.title,
-      description: $page => $page.frontmatter.description || extractDescription($page._strippedContent),
-      author: (_, $site) => info,
-      tags: $page => ($page.frontmatter.tags || ['Zeus']),
-      twitterCard: _ => 'summary',
-      type: $page => 'article',
-      url: (_, $site, path) => `${baseUrl}${path.replace('.html', pageSuffix)}`,
-      image: ($page, $site) => `${baseUrl}/card.png`
-    }],
-    ['clean-urls', {
-      normalSuffix: pageSuffix,
-      indexSuffix: pageSuffix,
-      notFoundPath: '/404.html',
-    }],
-    ['code-copy', {
-      color: '#8F979E',
-      backgroundTransition: false,
-      staticIcon: true
-    }],
-    ['sitemap', {
-      hostname: baseUrl,
-      exclude: ['/404.html']
-    }],
-    ['@vuepress/medium-zoom']
-  ],
-  markdown: {
-    extendMarkdown (md) {
-      md.use(implicitFigures)
-    },
-    pageSuffix,
-    slugify
-  },
+  description: 'Zeus official documentation',
   themeConfig: {
-    domain: baseUrl,
-    logo: '/img/zeus-logo.svg',
-    displayAllHeaders: false,
-    repo: '',
+    logo: '/img/zeus-logo-nav.svg',
     docsDir: 'docs',
-    editLinks: true,
-    notSatisfiedLinks: true, // our own addition, see theme/components/PageEdit.vue
     sidebarDepth: 0,
     nav: [
       {
@@ -287,28 +96,6 @@ module.exports = {
       {
         text: 'FAQ',
         link: '/FAQ/'
-      }
-    ],
-    social: [
-      {
-        text: 'Website',
-        link: 'https://zeusln.app/',
-        rel: 'noopener noreferrer website'
-      },
-      {
-        text: 'Chat',
-        link: 'https://t.me/zeusLN',
-        rel: 'noopener noreferrer chat'
-      },
-      {
-        text: 'GitHub',
-        link: 'https://github.com/ZeusLN',
-        rel: 'noopener noreferrer github'
-      },
-      {
-        text: 'Twitter',
-        link: 'https://twitter.com/ZeusLN',
-        rel: 'noopener noreferrer twitter'
       }
     ],
     sidebar: {

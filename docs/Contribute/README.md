@@ -1,6 +1,6 @@
 # How to contribute Zeus?
 
-Zeus Server is built and maintained entirely by volunteer contributors around the internet.
+Zeus is built and maintained entirely by volunteer contributors around the internet.
 
 We welcome, appreciate and encourage new contributions.
 

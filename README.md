@@ -1,20 +1,14 @@
 # Zeus Documentation
 
-## Introduction
+Zeus is a mobile bitcoin wallet that makes bitcoin payments simple, gives users complete control of their finances, and allows more advanced users to manage their Lightning nodes from the palm of their hand. This documentation site covers in detail how to use Zeus as a user, a developer and how to contribute to improving Zeus as either.
 
-Zeus is an open-source mobile Bitcoin/Lightning node manager and wallet application for lnd, c-lightning, and Eclair. ⚡️
+Zeus is available to download on the [Google play store](https://play.google.com/store/apps/details?id=app.zeusln.zeus), [Apple app store](https://apps.apple.com/us/app/zeus-ln/id1456038895) and [F-Droid](https://f-droid.org/packages/app.zeusln.zeus/).
 
-If you have trouble using Zeus, consider joining the [communities listed on the official website]() to get help from community members.
+If you are having trouble using Zeus, would like to contribute to the project, or are just interested in learning more, you can read these docs, reach our community on [Telegram](https://t.me/zeusLN), keep up with us on [Twitter](https://twitter.com/ZeusLN), join our [developer slack](https://zeusln.slack.com/join/shared_invite/zt-qw205nqa-o4VJJC0zPI7HiSfToZGoVw#/) or open an issue on [GitHub](https://github.com/ZeusLN/zeus).
 
-Only file a [Github issue]() for technical issues you can't resolve through other channels or feature requests you've validated with other members of community.
+Please check out our [official website](https://zeusln.app/) for more details.
 
-Please check out our [official website](), and [FAQ]() for more details.
-
-## Contributing
-
-Pull requests are welcome and appreciated. To contribute to BTCPay Server, first check the [contributing guidelines]().
-
-### Build the Documentation Locally
+### Build the documentation locally
 
 In order to build the website locally, you'll need [Node.js](https://nodejs.org/) >= 12.16 (or basically the latest LTS version).
 
@@ -25,7 +19,7 @@ The setup is straight forward:
 npm install
 
 # Serve locally (by default on port 8080)
-npm start
+npm run docs:dev
 ```
 
 ### Text Highlights
@@ -56,23 +50,12 @@ bar
 :::
 ```
 
-### SEO improvements
+### Embedding images
 
-We are using the [Vuepress SEO plugin](https://www.npmjs.com/package/vuepress-plugin-seo) to add relevant meta tags to the site and individual pages.
+To add an image you will need to add it to zeus-docs/docs/.vuepress/public/img directory and reference in the documentation like so:
 
-To improve the meta attributes of a specific page, you can add them as YAML frontmatter like this: (see the connect your Lightning node page for an example)
-
-```text
----
-description: How to connect your Lightning node to Zeus.
-tags:
-- Node
-- Bitcoin
-- Lightning
----
-# Connecting your node to Zeus
-
-This document explains how to connect your Lightning node to Zeus.
+```md
+![IMAGE ALT TEXT HERE](.img/DOCS_SECTION_HERE/IMAGE_NAME_HERE)
 ```
 
 ### Embedding YouTube videos

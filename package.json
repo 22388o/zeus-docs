@@ -1,47 +1,16 @@
 {
   "name": "zeus-docs",
-  "version": "0.1",
-  "description": "Zeus Official Documentation",
-  "author": "Zeus",
-  "license": "AGPL v3",
-  "bugs": "",
-  "homepage": "",
-  "repository": {
-    "type": "git",
-    "url": ""
-  },
-  "keywords": [
-    "zeus"
-  ],
-  "config": {
-    "dist": "docs/.vuepress/dist",
-    "port": "8080"
-  },
+  "version": "1.0.0",
+  "description": "Zeus documentation",
+  "main": "index.js",
   "scripts": {
-    "prestart": "rm -rf $npm_package_config_dist",
-    "start": "NODE_ENV=development vuepress dev docs -p $npm_package_config_port",
-    "build": "NODE_ENV=production vuepress build docs",
-    "netlify": "./setup-deps.sh && npm run build",
-    "test": "jest",
-    "linkcheck": "start-server-and-test linkcheck:serve $npm_package_config_port linkcheck:local",
-    "linkcheck:serve": "serve -p $npm_package_config_port $npm_package_config_dist",
-    "linkcheck:local": "$npm_package_config_linkcheck http://localhost:$npm_package_config_port",
-    "redirects": "node create-redirects.js"
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
   },
+  "author": "zeus",
+  "license": "MIT",
   "devDependencies": {
-    "@vuepress/plugin-back-to-top": "1.8.2",
-    "@vuepress/plugin-medium-zoom": "1.8.2",
-    "broken-link-checker": "0.7.8",
-    "esm": "3.2.25",
-    "jest": "27.3.1",
-    "markdown-it-implicit-figures": "0.10.0",
-    "markdown-it-include": "^2.0.0",
-    "serve": "13.0.2",
-    "start-server-and-test": "1.14.0",
-    "vuepress": "1.8.2",
-    "vuepress-plugin-clean-urls": "1.1.2",
-    "vuepress-plugin-code-copy": "1.0.6",
-    "vuepress-plugin-seo": "0.1.4",
-    "vuepress-plugin-sitemap": "2.3.1"
+    "vuepress": "^1.9.7",
+    "watchpack": "^1.6.1"
   }
 }
