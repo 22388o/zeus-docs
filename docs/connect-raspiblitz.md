@@ -1,1 +1,0 @@
-# RaspiBlitz node setup
